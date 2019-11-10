@@ -6,7 +6,7 @@ Created on Sun Nov 10 08:40:55 2019
 """
 import numpy as np
 import matplotlib.pyplot as plt
-w = 1
+w = 2
 b = 0.1
 
 # np.linspace 是 numpy.linspace 的意思
