@@ -1,0 +1,13 @@
+主題title:在Siri的演講語言辨識中找到特定目標
+
+內容contents:ASR accuracy has been improved recent years.
+There ara some bottleneck like small local businesses,entitles.
+Introduce Geo-LMs(geolocation-based language models)
+ASR systems comprise two major components:acoustic & language model
+簡單來說就是加入了geo的前處理
+Siri A hybrid convolutional neural network CNN-HMM [6] is used in all experiments.
+The AM was trained with filter bank features from about 5,000 hours of English speech data.
+ASR 
+Flexible training
+Efficient LM construction at runtime
+Significant ASR accuracy improvement over the general LM at the task of local POI recognitionsystem uses a weighted finite state transducer (WFST)-based decoder,
