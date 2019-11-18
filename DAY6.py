@@ -49,11 +49,14 @@ print('%d columns were label encoded.' % le_count)
 app_train = pd.get_dummies(app_train)
 app_test = pd.get_dummies(app_test)
 
-print(app_train['CODE_GENDER_F'].head())
+print(app_train['CODE_GENDER_F'].head())    #默認選五個
 print(app_train['CODE_GENDER_M'].head())
 print(app_train['NAME_EDUCATION_TYPE_Academic degree'].head())
 
+
 #HW
-sub_train = pd.DataFrame(app_train['WEEKDAY_APPR_PROCESS_START'])
+sub_train = pd.DataFrame(app_train['WEEKDAY_APPR_PROCESS_START_MONDAY'])
 print(sub_train.shape)
-sub_train.head()
+print(sub_train.head())
+#輸出的資料只有monday是1,其他都是0
+
