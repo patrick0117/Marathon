@@ -89,17 +89,19 @@ plt.show()
 #計算 AMT_ANNUITY 的分位點 (q0 - q100)
 hundred_num = np.linspace(0,100,100)
 quantile_100s = [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'], q = i) for i in five_num]
+#quantile_100s = [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'], q = i) for i in range (100)]
 print(quantile_100s)
 
 #將 AMT_ANNUITY 的 NaN 用中位數取代 
 app_train[app_train['AMT_ANNUITY'] == app_train['AMT_ANNUITY'].isnull()] = np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'], q = 50)
+'''
+q_50 = np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'], 50)
+app_train.loc[app_train['AMT_ANNUITY'].isnull(),'AMT_ANNUITY'] = q_50
+'''
 
 #將 AMT_ANNUITY 數值轉換到 -1 ~ 1 之間
 def normalize_value(x):
-    """
-    Your Code Here, compelete this function
-    """
-    
+    x = (( (x - min(x)) / ( max(x) - min(x) ) ) - 0.5) * 2
     return x
 
 app_train['AMT_ANNUITY_NORMALIZED'] = normalize_value(app_train['AMT_ANNUITY'])
@@ -114,10 +116,12 @@ print("Before replace NAs, numbers of row that AMT_GOODS_PRICE is NAs: %i" % sum
 """
 Your Code Here
 """
+
 value_most = mode(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'])
 print(value_most)
-
+#把每種數字編號
 mode_goods_price = list(app_train['AMT_GOODS_PRICE'].value_counts().index)
+#編號最多的會在index0
 app_train.loc[app_train['AMT_GOODS_PRICE'].isnull(), 'AMT_GOODS_PRICE'] = mode_goods_price[0]
 
 print("After replace NAs, numbers of row that AMT_GOODS_PRICE is NAs: %i" % sum(app_train['AMT_GOODS_PRICE'].isnull()))
