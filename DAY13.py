@@ -67,14 +67,37 @@ sub_df.head()
 
 app_train.groupby(['NAME_CONTRACT_TYPE'])['TARGET'].hist()
 plt.show()
+'''
+HW
+1.請將 app_train 中的 CNT_CHILDREN 依照下列規則分為四組，並將其結果在原本的 dataframe 命名為 CNT_CHILDREN_GROUP
+  0 個小孩、有 1 - 2 個小孩、有 3 - 5 個小孩、有超過 5 個小孩
+2.請根據 CNT_CHILDREN_GROUP 以及 TARGET，列出各組的平均 AMT_INCOME_TOTAL，並繪製 baxplot
 
+3.請根據 CNT_CHILDREN_GROUP 以及 TARGET，對 AMT_INCOME_TOTAL 計算 Z 轉換 後的分數
+'''
+#1.
+cut_rule = [-np.inf, 0, 2, 5, np.inf]
+#pd.cut(group want to cut, cut rule)
+app_train['CNT_CHILDREN_GROUP'] = pd.cut(app_train['CNT_CHILDREN'].values, cut_rule, include_lowest=True)
+#上列切分就是在給不同年齡一個分組代號，下面就是計算各組組數
+value1=app_train['CNT_CHILDREN_GROUP'].value_counts()
+#2.
+#創建一list-grp
+grp = ['CNT_CHILDREN_GROUP', 'TARGET']
+#使用groupby()方法可以將資料依照自己要的column分組
+#讓AMT_INCOME_TOTAL依照(grp)分組
+grouped_df = app_train.groupby(grp)['AMT_INCOME_TOTAL']
 
+#grouped_df.mean()
 
+plt_column = 'AMT_INCOME_TOTAL'
+plt_by = ['CNT_CHILDREN_GROUP', 'TARGET']
 
-
-
-
-
+app_train.boxplot(column=plt_column, by = plt_by, showfliers = False, figsize=(12,12))
+plt.suptitle('')
+plt.show()
+#3.
+app_train['AMT_INCOME_TOTAL_Z_BY_CHILDREN_GRP-TARGET'] = grouped_df.apply(lambda x:(x-np.mean(x))/np.std(x))
 
 
 
