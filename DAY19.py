@@ -91,7 +91,21 @@ for i in range(len(year_group_sorted)):
                  label = "TARGET = 1", hist = False)
     plt.title(str(year_group_sorted[i]))
 plt.show()    
+#hw
+unique_house_type = app_train['HOUSETYPE_MODE'].unique()
+#分類?
+nrows = len(unique_house_type)
+ncols = nrows // 2  #只取到整數 10//3=3
 
+plt.figure(figsize=(10,30))
+for i in range(len(unique_house_type)):
+    plt.subplot(nrows, ncols, i+1)
+    """
+    Your Code Here
+    """
+    app_train.loc[app_train['HOUSETYPE_MODE'] == unique_house_type[i], "AMT_CREDIT"].hist()
+    plt.title(str(unique_house_type[i]))
+plt.show()
 
 
 

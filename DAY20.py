@@ -101,3 +101,28 @@ grid.map_lower(sns.kdeplot, cmap = plt.cm.OrRd_r)
 
 plt.suptitle('Ext Source and Age Features Pairs Plot', size = 32, y = 1.05)
 plt.show()
+
+#hw如何將列出相異的 HOUSETYPE_MODE 類別 (In[3])
+#如何依照不同的 HOUSETYPE_MODE 類別指定資料, 並繪製長條圖
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
