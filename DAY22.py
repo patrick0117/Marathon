@@ -59,3 +59,53 @@ pred = estimator.predict(test_X)
 pred = np.expm1(pred)
 sub = pd.DataFrame({'Id': ids, 'SalePrice': pred})
 sub.to_csv('house_baseline.csv', index=False)
+
+'''
+鐵達尼生存預測精簡版
+'''
+# 程式區塊 A  輸入檔案位置
+
+data_path = 'C:/Users/91812/Documents/GitHub/Marathon/downloads/'
+df_train = pd.read_csv(data_path + 'titanic_train.csv')
+df_test = pd.read_csv(data_path + 'titanic_test.csv')
+#df_train.shape
+
+# 程式區塊 B   分出使用資料
+train_Y = df_train['Survived']
+ids = df_test['PassengerId']
+df_train = df_train.drop(['PassengerId', 'Survived'] , axis=1)
+df_test = df_test.drop(['PassengerId'] , axis=1)
+df = pd.concat([df_train,df_test])
+
+# 程式區塊 C    特徵工程
+LEncoder = LabelEncoder()
+MMEncoder = MinMaxScaler()
+for c in df.columns:
+    df[c] = df[c].fillna(-1)    #自動填空?
+    if df[c].dtype == 'object':
+        df[c] = LEncoder.fit_transform(list(df[c].values))
+    df[c] = MMEncoder.fit_transform(df[c].values.reshape(-1, 1))
+    
+# 程式區塊 D   #區分訓練以及測試組>並用logistic
+train_num = train_Y.shape[0]
+train_X = df[:train_num]   #只取第一個到第train_number
+test_X = df[train_num:]    #取第train number到最後
+
+from sklearn.linear_model import LogisticRegression
+estimator = LogisticRegression()
+estimator.fit(train_X, train_Y)
+pred = estimator.predict(test_X)    
+    
+# 程式區塊 E    #輸出預測結果
+sub = pd.DataFrame({'PassengerId': ids, 'Survived': pred})
+sub.to_csv('titanic_baseline.csv', index=False)    
+    
+
+
+
+
+
+
+
+
+
