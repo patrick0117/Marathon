@@ -4,3 +4,5 @@ downloads/application_train.csv
 downloads/house_train (2).csv.gz
 downloads/titanic_test.csv
 downloads/titanic_train.csv
+downloads/house_test.csv.gz
+downloads/house_train.csv.gz
