@@ -6,3 +6,5 @@ downloads/titanic_test.csv
 downloads/titanic_train.csv
 downloads/house_test.csv.gz
 downloads/house_train.csv.gz
+downloads/taxi_data1.csv
+downloads/taxi_data2.csv
