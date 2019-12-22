@@ -38,11 +38,42 @@ temp = pd.merge(temp, median_df, how='left', on=['SaleCondition'])
 temp = pd.merge(temp, max_df, how='left', on=['SaleCondition'])
 temp.columns = ['SaleCondition', 'Area_Sale_Mean', 'Area_Sale_Mode', 'Area_Sale_Median', 'Area_Sale_Max']
 
+df = pd.merge(df, temp, how='left', on=['SaleCondition'])
+df = df.drop(['SaleCondition'] , axis=1)
+
+#只取 int64, float64 兩種數值型欄位, 存於 num_features 中
+num_features = []
+for dtype, feature in zip(df.dtypes, df.columns):
+    if dtype == 'float64' or dtype == 'int64':
+        num_features.append(feature)
+print(f'{len(num_features)} Numeric Features : {num_features}\n')
+
+# 削減文字型欄位, 只剩數值型欄位
+df = df[num_features]
+df = df.fillna(-1)
+MMEncoder = MinMaxScaler()
+df.head()
+
+# 沒有這四個新特徵的 dataframe 稱為 df_minus
+df_minus = df.drop(['Area_Sale_Mean', 'Area_Sale_Mode', 'Area_Sale_Median', 'Area_Sale_Max'] , axis=1)
+
+# 原始特徵 + 線性迴歸
+train_X = MMEncoder.fit_transform(df_minus)
+estimator = LinearRegression()
+cross_val_score(estimator, train_X, train_Y, cv=5).mean()
+
+# 新特徵 + 線性迴歸 : 有些微改善
+train_X = MMEncoder.fit_transform(df)
+cross_val_score(estimator, train_X, train_Y, cv=5).mean()
 
 
+# 原始特徵 + 隨機森林
+train_X = MMEncoder.fit_transform(df_minus)
+estimator = RandomForestRegressor()
+cross_val_score(estimator, train_X, train_Y, cv=5).mean()
 
 
-
-
-
+# 新特徵 + 隨機森林
+train_X = MMEncoder.fit_transform(df)
+cross_val_score(estimator, train_X, train_Y, cv=5).mean()
 
