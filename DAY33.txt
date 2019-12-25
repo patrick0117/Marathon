@@ -1,0 +1,10 @@
+1. 模型的泛化能力 (generalization) 是指什麼？
+Generalization這部分在說要怎麼讓model也能適應沒新的、看過的data
+     好的generalization應該符合下面三個假設:
+        independently and identically (i.i.d) at random: 隨便選資料，資料不會互相影響，而且有同個distribution
+	分布是靜止的: 同個資料set內的分布不會改變
+	每個partition的example都有相同的distribution
+
+2. 分類問題與回歸問題分別可用的目標函數有哪些？
+回歸:均方誤差、huber損失、平均絕對誤差
+分類:0-1損失函數、交叉熵損失函數
