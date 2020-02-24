@@ -39,7 +39,7 @@ def plot_images_labels_prediction(images,labels,prediction,
     fig.set_size_inches(12, 14)
     if num>25: num=25 
     for i in range(0, num):
-        ax=plt.subplot(5,5, 1+i)
+        ax=plt.subplot(5,5, 1+i)  #choose which subplot
         ax.imshow(images[idx],cmap='binary')
                 
         title=str(i)+','+label_dict[labels[i][0]]
