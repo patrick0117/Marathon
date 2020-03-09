@@ -48,7 +48,7 @@ model.compile(loss="categorical_crossentropy", metrics=["accuracy"], optimizer=o
 
 # 訓練模型並檢視驗證集的結果
 model.fit(x_train, y_train, 
-          epochs=100, 
+          epochs=10, 
           batch_size=256, 
           validation_data=(x_test, y_test), 
           shuffle=True)
@@ -56,10 +56,10 @@ model.fit(x_train, y_train,
 # 以視覺畫方式檢視訓練過程
 import matplotlib.pyplot as plt
 train_loss = model.history.history["loss"]
-valid_loss = model.history.history["val_loss"]
+valid_loss = model.history.history["val_loss"] #THEY GOT BACKGROUND loss and accuracy
 
-train_acc = model.history.history["acc"]
-valid_acc = model.history.history["val_acc"]
+train_acc = model.history.history["accuracy"]
+valid_acc = model.history.history["val_accuracy"]
 
 plt.plot(range(len(train_loss)), train_loss, label="train loss")
 plt.plot(range(len(valid_loss)), valid_loss, label="valid loss")
